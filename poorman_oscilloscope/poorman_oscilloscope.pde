@@ -4,6 +4,7 @@ Serial port; // Create object from Serial class
 int val; // Data received from the serial port
 int[] values;
 float zoom;
+boolean active = true;
 
 void setup()
 {
@@ -70,14 +71,20 @@ void keyReleased() {
     if (zoom < 1.0f)
       zoom *= 2.0f;
     break;
+  case ' ':
+    active = !active;
+    break;
   }
 }
 
+
 void draw()
 {
-  background(0);
-  drawGrid();
   getValue();
-  drawLines();
+  if (active) { 
+    background(0);
+    drawGrid();
+    drawLines();
+  }
 }
 
