@@ -1,24 +1,32 @@
 #define ANALOG_IN 0
 #define LASER_OUT 4
-boolean power = true; 
 
 void setup() {
   Serial.begin(115200); 
   pinMode(LASER_OUT, OUTPUT );
 }
 
+const int halfPeriod = 25;  // 1/60 sec + 4 millisecond
+int  onTime = 0, offTime = 0;
+int  localMax = 0, localMin = 1024, localAvg = 0;
 void loop() { 
-  //digitalWrite(LASER_OUT, power);
-  digitalWrite(LASER_OUT, ( ( millis() % 12 ) > 5 ) );
+  boolean laser_on = ( ( millis() % halfPeriod * 2 ) > ( halfPeriod - 1 ) );
+  if( laser_on )  onTime = millis();
+  else  offTime = millis();
+  digitalWrite(LASER_OUT, laser_on );
 
-  //delay(1);
-  int val = analogRead(ANALOG_IN);
-  power = !power;
+  int val = analogRead( ANALOG_IN );  
+  if( abs(onTime - offTime) > 5 ) { 
+    if( val > localMax ){ localMax = val; }
+    if( val < localMin ){ localMin = val; }
+    localAvg = ( localMax + localMin ) / 2;
+  } else {
+    localMax = 0;
+    localMin = 1023;
+    val = localAvg;
+  }
   
-  
-  
-  
-  if(val<0){ val = 0; }
+  if( val < 0 ){ val = 0; }
   Serial.write( 0xff );
   Serial.write( (val >> 8) & 0xff );
   Serial.write( val & 0xff );
