@@ -38,7 +38,3 @@ var main = function() {
   });
 }
 $(document).ready(main);
-Dieses Board konnt ihr gleichzeitig bearbeiten. Rechts oben den Vornamen eingeben, dann ist klar, wer was geschrieben hat. 
-Collaborate seamlessly on documents! This pad text is synchronized as you type, so that everyone viewing this page sees the same text. No need to press a save button. 
-Create your own board and a (secret) name for it here: http://board.net . Pass it on to your colleagues with the share button.
-Provided by http://ethify.org and green hosted by http://www.ALLMENDA.com Cloud Services.
