@@ -1,7 +1,13 @@
+/*
 var main = function() {
-  $('.nav li').mouseenter(function() {
-    $('.nav li').toggleClass('haha');
+  $('.nav a').mouseenter(function() {
+    $(this).addClass('haha');
+  });
+  
+  $('.nav a').mouseleave(function() {
+    $(this).removeClass('haha');
   });
   
 }
 $(document).ready(main);
+*/
